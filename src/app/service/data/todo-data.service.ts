@@ -11,9 +11,16 @@ export class TodoDataService {
     private http:HttpClient
   ) { }
 
-  retrieveAllRodos(username){
+  retrieveAllTodos(username){
     return this.http.get<Todo[]>(`http://localhost:8080/users/${username}/todos`);
     //console.log("Execute Hello World Bean Service");
   }
 
+  deleteTodo(username,  id){
+    return this.http.delete(`http://localhost:8080/users/${username}/todos/${id}`)
+  }
+
+  retrieveTodo(username,  id){
+    return this.http.get<Todo>(`http://localhost:8080/users/${username}/todos/${id}`)
+  }
 }
