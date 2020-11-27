@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BasicAuthenticationService } from '../service/basic-authentication.service copy';
 import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   //Angular.giveMeRouter
   //Dependency Injection
   constructor(private router: Router,
-    public hardedCodedAuthenticationService: HardcodedAuthenticationService) { } 
+    public hardedCodedAuthenticationService: HardcodedAuthenticationService,
+    private basicAuthenticationService: BasicAuthenticationService) { } 
   //find the router and inject it in the particular component
   //pass a parameter to the constructor you can use it as a member variable
 
@@ -37,6 +39,24 @@ export class LoginComponent implements OnInit {
     }
 
     //console.log(this.username);
+  }
+
+  handleBasicAuthLogin(){
+    //if(this.username === "in28minutes" && this.password === 'dummy'){
+    this.basicAuthenticationService.executeBasicAuthenticationService(this.username,this.password)
+    .subscribe(
+      data => {
+        console.log(data)
+        //redirect to welcome page 
+      this.router.navigate(['welcome', this.username])//array parameter of the page
+      this.invalidLogin = false  
+    },
+      error => {
+        console.log(error)
+        this.invalidLogin = true
+       
+      }
+    )
   }
 
 }
