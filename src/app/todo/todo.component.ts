@@ -34,7 +34,7 @@ export class TodoComponent implements OnInit {
   saveTodo(){
     //console.log("Save todo");
 
-    if(this.id===-1){
+    if(this.id==-1){ //comparing objects === comparing primitives ==
       this.todoService.createTodo('in28minutes',this.todo).subscribe(
         data => {
           console.log(data)
